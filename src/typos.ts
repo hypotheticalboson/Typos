@@ -19,29 +19,36 @@ export default class Typos{
 
   //normal setters
 
-  chapter(content : string, className : string | string[] | null, count : string |null){
+  chapter(content : string, className : string | string[] | null, count : NUMBERING | null){
+
+    const number : string = count ? count.getNumbering() : "";
+
     this.render.pushStep({
       kind : "chapter",
       content : content,
-      numbering : count,
+      numbering : number,
       className : className as string | null
     });
   }
 
-  title(content : string, className : string | string[] | null, count : string |null){
+  title(content : string, className : string | string[] | null, count : NUMBERING | null){
+
+    const number : string = count ? count.getNumbering() : "";
+
     this.render.pushStep({
       kind : "title",
       content : content,
-      numbering : count,
+      numbering : number,
       className : className as string | null
     });
   }
 
-  para(content : string, className : string | string[] | null, count : string |null){
+  para(content : string, className : string | string[] | null, count : NUMBERING | null){
+    const number : string = count ? count.getNumbering() : "";
     this.render.pushStep({
       kind : "para",
       content : content,
-      numbering : count,
+      numbering : number,
       className : className as string | null
     });
   }

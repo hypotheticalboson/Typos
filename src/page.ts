@@ -39,7 +39,7 @@ export default class PAGE {
 
             const contentElement = document.createElement("div");
             contentElement.className = "doc-content";
-            contentElement.classList.add('doc-' + content.kind);
+  
 
 
             ///className can be both a list of class or a single class name string,
@@ -47,7 +47,7 @@ export default class PAGE {
             // ///else it is added as a single class name
             if(Array.isArray(content.className))
                 contentElement.classList.add(...content.className);
-            else if(content.className !== null)
+            else if(content.className !== null && content.className !== '')
                 contentElement.classList.add(content.className);
 
             contentElement.innerHTML = content.content;
@@ -56,6 +56,8 @@ export default class PAGE {
             Container.className = "doc-numbering-content-container";
             
             Container.append(numberingElement, contentElement);
+
+            Container.classList.add('doc-' + content.kind);
             
             this.body.appendChild(Container);
             
@@ -78,7 +80,7 @@ export default class PAGE {
         // ///else it is added as a single class name
         if(Array.isArray(content.className))
             contentElement.classList.add(...content.className);
-        else if(content.className !== null)
+        else if(content.className !== null && content.className !== '')
             contentElement.classList.add(content.className);
         
         contentElement.innerHTML = content.content;
