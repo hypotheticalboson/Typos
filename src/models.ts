@@ -9,3 +9,11 @@ export interface command{
     isCommand : true;
     action : string;
 }
+
+
+export interface page{
+    page : HTMLDivElement;
+    body : HTMLDivElement;
+    header : HTMLDivElement;
+    footer : HTMLDivElement;
+}
