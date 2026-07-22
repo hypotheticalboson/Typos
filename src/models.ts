@@ -11,9 +11,13 @@ export interface Command{
 }
 
 
-export interface page{
-    page : HTMLDivElement;
-    body : HTMLDivElement;
-    header : HTMLDivElement;
-    footer : HTMLDivElement;
+export interface PageInformation{
+    putPageNumber : boolean;
+    pageNumbering : number;
+}
+
+
+
+export function notNull(value :any) : boolean{
+    return value !== null && value !== undefined;
 }

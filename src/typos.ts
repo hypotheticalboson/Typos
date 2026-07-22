@@ -53,11 +53,32 @@ export default class Typos{
     });
   }
 
+  text(content : string, className : string | string[] | null, count : NUMBERING | null){
+    const number : string = count ? count.getNumbering() : "";
+    this.render.pushStep({
+      kind : "text",
+      content : content,
+      numbering : number,
+      className : className as string | null
+    });
+  }
+
   //numbering setters
 
   newNumbering(){
     return new NUMBERING();
   }
+
+  ///PAGE CONTROLS
+
+  startPageNumbering(){
+    this.render.pushStep({
+      isCommand : true,
+      action : "startPageNumbering"
+    });
+  }
+    
+  
 
 
   //RENDER

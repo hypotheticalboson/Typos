@@ -1,4 +1,4 @@
-import { Step, Command } from "./models";
+import { Step, Command, PageInformation } from "./models";
 
 export default class PAGE {
 
@@ -6,7 +6,7 @@ export default class PAGE {
     body : HTMLDivElement
     header : HTMLDivElement;
     footer : HTMLDivElement;
-    constructor(){
+    constructor( pageInfo : PageInformation){
 
         ///cratation PAGE HTML Element
         this.page = document.createElement("div");
@@ -24,6 +24,18 @@ export default class PAGE {
         this.page.appendChild(this.footer);
 
         document.body.appendChild(this.page);
+
+
+        ///Execution of Page Information :
+        //Page Numbering
+
+        if(pageInfo.pageNumbering){
+            ///page Number element on Footer with class footerpageNumber
+            const pageNumberElement = document.createElement('div');
+            pageNumberElement.className = "doc-footerpageNumber";
+            pageNumberElement.innerText = pageInfo.pageNumbering.toString();
+            this.footer.appendChild(pageNumberElement);
+        }
     }
 
 

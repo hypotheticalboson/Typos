@@ -1,4 +1,4 @@
-import { Step, Command } from "./models";
+import { Step, Command, PageInformation, notNull } from "./models";
 import PAGE from "./page.js";
 
 export default class RENDER{
@@ -6,9 +6,25 @@ export default class RENDER{
     steps : (Step | Command) [];
     currentPage : PAGE;
     pageCount : number = 0;
+
+    ///PaGE INFORMATION VAriables
+    pageInfo : PageInformation;
+    
+
+
     constructor(){
         this.steps = [];
-        this.currentPage = new PAGE();
+
+
+
+        ///things that are passed to PAGE
+
+        this.pageInfo = {
+            putPageNumber : false,
+            pageNumbering : 0
+        }
+
+        this.currentPage = new PAGE(this.pageInfo);
         this.pageCount = 1;
     }
 
@@ -29,8 +45,10 @@ export default class RENDER{
 
                 switch(cmd){
                     case "breakPage":
-                        this.currentPage = new PAGE();
-                        this.pageCount++;
+                        this.#createNewPage();
+                        break;
+                    case "startPageNumbering":
+                        this.pageInfo.putPageNumber = true;
                         break;
 
                 }
@@ -40,8 +58,7 @@ export default class RENDER{
                 const newPageNeeded : boolean = this.currentPage.addContent(step as Step);
 
                 if(newPageNeeded){
-                    this.currentPage = new PAGE();
-                    this.pageCount++;
+                    this.#createNewPage();
 
                     const newPageNeeded : boolean = this.currentPage.addContent(step as Step);
 
@@ -51,5 +68,17 @@ export default class RENDER{
             }
         }
 
+    }
+
+    ///Minimize repetitive code by creating a function that
+    // handles the creation of new PAGE and making it the this.currentPage,
+    // also incremetenting the pageCount and pageNumbering if needed
+
+    #createNewPage(){
+        this.currentPage = new PAGE(this.pageInfo);
+        this.pageCount++;
+        
+        if(this.pageInfo.putPageNumber)
+            this.pageInfo.pageNumbering!++;
     }
 }

@@ -96,3 +96,23 @@ div{
     gap: 5px;
 
 }
+
+
+/* PAGE NUMBERING */
+.doc-footerpageNumber{
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+}
+
+
+
+@media print {
+    body{
+        background-color: white;
+    }
+
+    .page{
+        page-break-after: always;
+    }
+}
