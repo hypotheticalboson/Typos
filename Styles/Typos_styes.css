@@ -97,6 +97,11 @@ div{
 
 }
 
+.doc-numbering{
+    width: 24px;
+    text-align: right;
+}
+
 
 /* PAGE NUMBERING */
 .doc-footerpageNumber{
@@ -104,6 +109,8 @@ div{
     text-align: center;
     width: 100%;
 }
+
+
 
 
 

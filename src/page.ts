@@ -28,7 +28,7 @@ export default class PAGE {
 
         ///Execution of Page Information :
         //Page Numbering
-
+        console.log("DEBUG FROM PAGE, PAGE IFORMATION : ", pageInfo);
         if(pageInfo.pageNumbering){
             ///page Number element on Footer with class footerpageNumber
             const pageNumberElement = document.createElement('div');

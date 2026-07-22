@@ -4,7 +4,7 @@ import PAGE from "./page.js";
 export default class RENDER{
 
     steps : (Step | Command) [];
-    currentPage : PAGE;
+    currentPage : PAGE | null;
     pageCount : number = 0;
 
     ///PaGE INFORMATION VAriables
@@ -14,6 +14,7 @@ export default class RENDER{
 
     constructor(){
         this.steps = [];
+        this.currentPage = null;
 
 
 
@@ -24,7 +25,7 @@ export default class RENDER{
             pageNumbering : 0
         }
 
-        this.currentPage = new PAGE(this.pageInfo);
+        // this.currentPage = new PAGE(this.pageInfo);
         this.pageCount = 1;
     }
 
@@ -55,12 +56,16 @@ export default class RENDER{
             }
             //else if it is step
             else{
-                const newPageNeeded : boolean = this.currentPage.addContent(step as Step);
+                ///create current page if current page does not exist
+                if(this.currentPage === null)
+                    this.#createNewPage();
+
+                const newPageNeeded : boolean = this.currentPage!.addContent(step as Step);
 
                 if(newPageNeeded){
                     this.#createNewPage();
 
-                    const newPageNeeded : boolean = this.currentPage.addContent(step as Step);
+                    const newPageNeeded : boolean = this.currentPage!.addContent(step as Step);
 
                     if(newPageNeeded)
                         throw new Error("Content too big to fit in a single page.");
@@ -75,10 +80,13 @@ export default class RENDER{
     // also incremetenting the pageCount and pageNumbering if needed
 
     #createNewPage(){
+
+        if(this.pageInfo.putPageNumber)
+            this.pageInfo.pageNumbering!++;
+
         this.currentPage = new PAGE(this.pageInfo);
         this.pageCount++;
         
-        if(this.pageInfo.putPageNumber)
-            this.pageInfo.pageNumbering!++;
+
     }
 }
